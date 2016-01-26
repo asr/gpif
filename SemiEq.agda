@@ -26,10 +26,10 @@ deqt (F ⊕ G) f o (inl x) (inl y) = mapMaybe (cong≡ inl) (deqt F f o x y)
 deqt (F ⊕ G) f o (inl x) (inr y) = nothing
 deqt (F ⊕ G) f o (inr x) (inl y) = nothing
 deqt (F ⊕ G) f o (inr x) (inr y) = mapMaybe (cong≡ inr) (deqt G f o x y)
-deqt (F ⊗ G) f o (x1 , x2) (y1 , y2) =       deqt F f o x1 y1 >>= 
-                                      λ l → deqt G f o x2 y2 >>= 
+deqt (F ⊗ G) f o (x1 , x2) (y1 , y2) =       deqt F f o x1 y1 >>=
+                                      λ l → deqt G f o x2 y2 >>=
                                       λ r → just (cong≡₂ _,_ l r)
-deqt (F ⊚ G) f o x y = deqt F (deqt G f) o x y 
+deqt (F ⊚ G) f o x y = deqt F (deqt G f) o x y
 deqt (! o) f .o refl refl = just refl
 deqt (Σ {C = C} g) f o (some {i1} x) (some {i2} y) with deqt {r = λ _ → _} C (λ ()) tt i1 i2
 deqt (Σ g) f o (some x0) (some y) | nothing = nothing

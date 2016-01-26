@@ -29,7 +29,7 @@ const : {A B : Set} → A → B → A
 const x y = x
 
 
-infixr 7 _∘_ 
+infixr 7 _∘_
 -- Most general composition
 _∘_ : ∀ {a b c}
         {A : Set a} {B : A → Set b} {C : {x : A} → B x → Set c} →
@@ -37,14 +37,14 @@ _∘_ : ∀ {a b c}
       ((x : A) → C (g x))
 (f ∘ g) x = f (g x)
 
-infixr 7 _⊙_ 
+infixr 7 _⊙_
 -- Composition without universe polymorphism
 _⊙_ : {A : Set} {B : A → Set} {C : {x : A} → B x → Set} →
       (∀ {x} (y : B x) → C y) → (g : (x : A) → B x) →
       ((x : A) → C (g x))
 (f ⊙ g) x = f (g x)
 
-infixr 7 _∙_ 
+infixr 7 _∙_
 -- Non-dependent composition
 _∙_ : {A B C : Set} → (B → C) → (A → B) → A → C
 (f ∙ g) x = f (g x)
@@ -99,7 +99,7 @@ _▵_ : {I J R : Set} → (R → I) → (R → J) → R → (I × J)
 infixr 5 _+_
 
 -- Sum type.
-data _+_ (A B : Set) : Set where 
+data _+_ (A B : Set) : Set where
   inl : A → A + B
   inr : B → A + B
 
@@ -129,7 +129,7 @@ data _≡_ {ℓ : Level} {A : Set ℓ} (x : A) : A → Set ℓ where
 cong≡ : {a b : Level} {A : Set a} {B : Set b} {x y : A} (f : A → B) → x ≡ y → f x ≡ f y
 cong≡ f refl = refl
 
-cong≡₂ : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} → ∀ {x x′ y y′} 
+cong≡₂ : {a b c : Level} {A : Set a} {B : Set b} {C : Set c} → ∀ {x x′ y y′}
        → (f : A → B → C) → x ≡ x′ → y ≡ y′ → f x y ≡ f x′ y′
 cong≡₂ f refl refl = refl
 

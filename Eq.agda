@@ -23,7 +23,7 @@ inlCong refl = refl
 inrCong : {A B : Set} {x y : B} → (inr {A} {B} x ≡ inr y) → (x ≡ y)
 inrCong refl = refl
 
-,Cong : {A B : Set} {x1 y1 : A} {x2 y2 : B} 
+,Cong : {A B : Set} {x1 y1 : A} {x2 y2 : B}
       → ((x1 , x2) ≡ (y1 , y2)) → ((x1 ≡ y1) × (x2 ≡ y2))
 ,Cong refl = refl , refl
 

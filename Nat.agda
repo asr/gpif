@@ -39,7 +39,7 @@ fromToNat≃ {x = ⟨ inl tt ⟩} = refl
 fromToNat≃ {x = ⟨ inr _  ⟩} = cong≡ (⟨_⟩ ∘ inr) fromToNat≃
 
 `NatE' : ⊥ ▸ ⊤
-`NatE' = Iso `Nat' (λ _ _ → Nat) (λ r o → record { from = fromNat 
+`NatE' = Iso `Nat' (λ _ _ → Nat) (λ r o → record { from = fromNat
                                                  ; to   = toNat
                                                  ; iso₁ = toFromNat≃
                                                  ; iso₂ = fromToNat≃ })

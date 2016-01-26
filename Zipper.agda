@@ -19,7 +19,7 @@ mutual
   Ctx (F ↗ f ↘ g) i r o = ∃ (λ i′ → (f i′ ≡ i) × ∃ (λ o′ → (g o ≡ o′) × Ctx F i′ (r ∘ f) o′))
   Ctx (F ⊕ G)  i r o = Ctx F i r o + Ctx G i r o
   Ctx (F ⊗ G)  i r o = (Ctx F i r o × ⟦ G ⟧ r o) + (⟦ F ⟧ r o × Ctx G i r o)
-  Ctx (F ⊚ G)  i r o = ∃ (λ m → Ctx F m (⟦ G ⟧ r) o × Ctx G i r m) 
+  Ctx (F ⊚ G)  i r o = ∃ (λ m → Ctx F m (⟦ G ⟧ r) o × Ctx G i r m)
   Ctx (! o′)   i r o = ⊥
   Ctx (Σ f)   i r o = ∃ (λ i′ → Ctx (f i′) i r o)
   Ctx (Fix F)  i r o = ∃ (λ m → Ctx F (inl i) (r ∣ μ F r) m × Ctxs F m r o)
@@ -103,13 +103,13 @@ mutual
 
 next : {I O : Set} {r : Indexed I} {o : O} {R : Set} →
        (C : I ▸ O) →
-       ((i : I) → r i → Ctx C i r o → Maybe R) → 
+       ((i : I) → r i → Ctx C i r o → Maybe R) →
        {i : I} → Ctx C i r o → r i → Maybe R
 next Z       k ()                r
 next U       k ()                r
 next (I i)   k c                 r = nothing
-next (F ↗ f ↘ g) k (some (refl , some (q , c))) r 
-                                  = next F (λ i s d → 
+next (F ↗ f ↘ g) k (some (refl , some (q , c))) r
+                                  = next F (λ i s d →
                                          k (f i) s (some (refl , some (q , d)))) c r
 next (F ⊕ G) k (inl c)           r = next F (λ i s d →
                                          k i s (inl d)) c r

@@ -63,8 +63,8 @@ updateTree′ {A} {tt} f x = just (update g tt x) where
   g tt = fromTree ∘ f ∘ toTree
 
 test1 : Tree Nat → Maybe (Tree Nat)
-test1 t = down (enterTree t) >>= 
-          updateTree (mapTree (const 0)) >>= 
+test1 t = down (enterTree t) >>=
+          updateTree (mapTree (const 0)) >>=
           leaveTree
 
 -- Get leftmost subtree
@@ -126,8 +126,8 @@ tll1 = refl
 open import Perfect
 
 test5 : {n : Nat} → Perfect Nat {n} → Maybe (Perfect Nat {n})
-test5 p = down (enter (fromPerfect p)) >>= 
-          just ∙ (update f _)          >>= 
+test5 p = down (enter (fromPerfect p)) >>=
+          just ∙ (update f _)          >>=
           leave                        >>=
           just ∙ toPerfect where
   f : (n : Nat) → ⟦ `Perfect' ⟧ (T Nat) n → ⟦ `Perfect' ⟧ (T Nat) n
@@ -142,7 +142,7 @@ open import RoseTree
 test6 : Rose Nat → Maybe (Rose Nat)
 test6 t = down (enter (fromRose t)) >>=
           right >>= right >>= right >>= down >>=
-          just ∙ (update f _) >>= 
+          just ∙ (update f _) >>=
           leave >>=
           just ∙ toRose where
   f : (i : ⊤) → ⟦ `Rose' ⟧ (T Nat) i → ⟦ `Rose' ⟧ (T Nat) i

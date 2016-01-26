@@ -50,7 +50,7 @@ postulate isoVec₂ : {r : Indexed ⊤} {n : Nat} {x : ⟦ `Vec' ⟧ r n}
                   → fromVec′ {r} (toVec′ x) ≡ x
 
 epVec : {r : Indexed ⊤} {n : Nat} → Vec (r tt) n ≃ ⟦ `Vec' ⟧ r n
-epVec {r} = record { from = fromVec′ 
+epVec {r} = record { from = fromVec′
                    ; to   = toVec′
                    ; iso₁ = isoVec₁ {r} ; iso₂ = isoVec₂ }
 
@@ -63,7 +63,7 @@ mapVec {n} f = map `VecE' (↑ f) n
 
 -- Catamorphism
 cataVec′ : {n : Nat} {A : Set} {R : Nat → Set}
-         → R zero 
+         → R zero
          → ({m : Nat} → A → R m → R (suc m))
          → Vec A n → R n
 cataVec′ {n} {A} {R} nil cons = cata `VecF' g n ∘ fromVec

@@ -19,14 +19,14 @@ open import IxFun
 `Pair' = Fix `PairF'
 
 -- Conversions
-fromPair′ : {r : Indexed (⊤ + ⊤)} {o : ⊤} 
+fromPair′ : {r : Indexed (⊤ + ⊤)} {o : ⊤}
           → (r (inl o) × r (inr o)) → ⟦ `Pair' ⟧ r o
 fromPair′ {o = tt} (x , y) = ⟨ x , y ⟩
 
 fromPair : ∀ {A B} → A × B → ⟦ `Pair' ⟧ (T A ∣ T B) tt
 fromPair = fromPair′
 
-toPair′ : {r : Indexed (⊤ + ⊤)} {o : ⊤} 
+toPair′ : {r : Indexed (⊤ + ⊤)} {o : ⊤}
         → ⟦ `Pair' ⟧ r o → (r (inl o) × r (inr o))
 toPair′ {o = tt} ⟨ x , y ⟩ = (x , y)
 
@@ -39,7 +39,7 @@ postulate isoPair₂ : {r : Indexed (⊤ + ⊤)} {o : ⊤} {x : ⟦ `Pair' ⟧ r
                    → fromPair′ {r} (toPair′ x) ≡ x
 
 epPair : (r : Indexed (⊤ + ⊤)) (o : ⊤) → r (inl o) × r (inr o) ≃ ⟦ `Pair' ⟧ r o
-epPair r tt = record { from = fromPair′ 
+epPair r tt = record { from = fromPair′
                      ; to   = toPair′
                      ; iso₁ = isoPair₁ {r} ; iso₂ = isoPair₂ }
 

@@ -62,7 +62,7 @@ f ≗ g = ∀ i x → f i x ≡ g i x
 ∥-id if ig (inl i) x = if i x
 ∥-id if ig (inr j) x = ig j x
 
-∥-∘ : {I J : Set}{r₁ s₁ t₁ : Indexed I}{r₂ s₂ t₂ : Indexed J} → 
+∥-∘ : {I J : Set}{r₁ s₁ t₁ : Indexed I}{r₂ s₂ t₂ : Indexed J} →
       {f₁ : s₁ ⇉ t₁}{g₁ : r₁ ⇉ s₁}{f₂ : s₂ ⇉ t₂}{g₂ : r₂ ⇉ s₂} →
       (f₁ ⇉∘ g₁ ∥ f₂ ⇉∘ g₂) ≗ ((f₁ ∥ f₂) ⇉∘ (g₁ ∥ g₂))
 ∥-∘ (inl i) x = refl
@@ -110,15 +110,15 @@ mutual
     _⊗_    :  ∀ {I O}     → I ▸ O  → I ▸ O  →  I ▸ O
     _⊚_    :  ∀ {I M O}   → M ▸ O  → I ▸ M  →  I ▸ O
 
-    _↗_↘_  :  ∀ {I I′ O O′} → I′ ▸ O′ → 
+    _↗_↘_  :  ∀ {I I′ O O′} → I′ ▸ O′ →
               (I′ → I) → (O → O′) →  I ▸ O
- 
+
     Fix    :  ∀ {I O} → (I + O) ▸ O → I ▸ O
 
-    Σ      :  ∀ {I O}  → {C : ⊥ ▸ ⊤} → 
+    Σ      :  ∀ {I O}  → {C : ⊥ ▸ ⊤} →
               (⟦ C ⟧ (λ _ → ⊤) tt → I ▸ O) → I ▸ O
 
-    Iso    :  ∀ {I O}  → (C : I ▸ O) → (D : I ▷ O) → 
+    Iso    :  ∀ {I O}  → (C : I ▸ O) → (D : I ▷ O) →
               ((r : Indexed I) → (o : O) → D r o ≃ ⟦ C ⟧ r o) →
               I ▸ O
 -- Interpretation of codes as indexed functors.
@@ -174,7 +174,7 @@ map-cong (F ⊚ G)     ip i x          = map-cong F (map-cong G ip) i x
 map-cong (! o′)      ip i x          = refl
 map-cong (Σ g)       ip i (some x)   = cong≡ some (map-cong (g _) ip i x)
 map-cong (Fix F)     ip i ⟨ x ⟩      = cong≡ ⟨_⟩ (map-cong F (∥-cong ip (map-cong (Fix F) ip)) i x)
-map-cong {r = r} {s = s} (Iso C D e) ip i x 
+map-cong {r = r} {s = s} (Iso C D e) ip i x
   = cong≡ (_≃_.to (e s i)) (map-cong C ip i (_≃_.from (e r i) x))
 
 map-id : {I O : Set}{r : Indexed I}(C : I ▸ O) →
@@ -192,8 +192,8 @@ map-id (Σ g)      i (some x)        = cong≡ some (map-id (g _) i x)
 map-id (Fix F)    i ⟨ x ⟩           = cong≡ ⟨_⟩ (trans≡ (map-cong F (∥-id (λ _ _ → refl)
                                                                     (map-id (Fix F))) i x)
                                                         (map-id F i x))
-map-id {r = r} (Iso C D e) i x = sym≡ (trans≡ (sym≡ (_≃_.iso₁ (e r i))) 
-                                  (sym≡ (cong≡ (_≃_.to (e r i)) 
+map-id {r = r} (Iso C D e) i x = sym≡ (trans≡ (sym≡ (_≃_.iso₁ (e r i)))
+                                  (sym≡ (cong≡ (_≃_.to (e r i))
                                               (map-id C i (_≃_.from (e r i) x)))))
 
 -- The second proof proceeds in the same way

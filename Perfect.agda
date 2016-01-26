@@ -48,7 +48,7 @@ PerfectF (suc n) = ! (suc n) ⊗ I (inl tt) ⊗ I (inr n) ⊗ I (inr n)
 `Perfect' = Fix `PerfectF'
 
 fromPerfect′ : {r : Indexed ⊤} {n : Nat} → Perfect (r tt) {n} → ⟦ `Perfect' ⟧ r n
-fromPerfect′ {n = suc n} (split x (p1 , p2)) = 
+fromPerfect′ {n = suc n} (split x (p1 , p2)) =
   ⟨ some {x = suc n} (refl , (x , (fromPerfect′ p1 , fromPerfect′ p2))) ⟩
 fromPerfect′ {n = zero} leaf = ⟨ some {x = zero} refl ⟩
 
@@ -70,7 +70,7 @@ postulate isoPerfect₂ : {r : Indexed ⊤} {n : Nat} {x : ⟦ `Perfect' ⟧ r n
 
 `PerfectE' : ⊤ ▸ Nat
 `PerfectE' = Iso `Perfect' (λ f n → Perfect (f tt) {n})
-                           (λ r n → record { from = fromPerfect′ 
+                           (λ r n → record { from = fromPerfect′
                                            ; to   = toPerfect′
                                            ; iso₁ = isoPerfect₁ {r} ; iso₂ = isoPerfect₂ })
 
@@ -78,7 +78,7 @@ mapPerfect : ∀ {n A B} → (A → B) → Perfect A {n} → Perfect B {n}
 mapPerfect {n} f = map `PerfectE' (↑ f) n
 
 cataPerfect′ : {n : Nat} {A : Set} {R : Nat → Set}
-             → R zero 
+             → R zero
              → ({m : Nat} → A → R m × R m → R (suc m))
              → Perfect A {n} → R n
 cataPerfect′ {n} {A} {R} r f p = cata `PerfectF' g n (fromPerfect p)

@@ -44,7 +44,7 @@ toTree′ {o = tt} ⟨ inr (x , y) ⟩ = node (toTree′ x) (toTree′ y)
 toTree : ∀ {A} → ⟦ `Tree' ⟧ (T A) tt → Tree A
 toTree = toTree′
 
-postulate isoTree₁ : {r : Indexed ⊤} {o : ⊤} {x : Tree (r o)} 
+postulate isoTree₁ : {r : Indexed ⊤} {o : ⊤} {x : Tree (r o)}
                    → toTree′ {r} (fromTree′ x) ≡ x
 postulate isoTree₂ : {r : Indexed ⊤} {o : ⊤} {x : ⟦ `Tree' ⟧ r o}
                    → fromTree′ {r} (toTree′ x) ≡ x
@@ -63,7 +63,7 @@ mapTree f = map `TreeE' (↑ f) tt
 
 -- Catamorphism
 cataTree : {r : Indexed ⊤} {R : Set}
-         → ((r tt) → R) → (R → R → R) 
+         → ((r tt) → R) → (R → R → R)
          → Tree (r tt) → R
 cataTree {r} n c = cata {r = r} `TreeF' (λ i → n ▿ uncurry c) tt ∘ fromTree′
 

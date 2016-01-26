@@ -44,7 +44,7 @@ postulate isoList₂ : {r : Indexed ⊤} {o : ⊤} {x : ⟦ `List' ⟧ r o}
                    → fromList′ {r} (toList′ x) ≡ x
 
 epList : {r : Indexed ⊤} {o : ⊤} → List (r o) ≃ ⟦ `List' ⟧ r o
-epList {r} = record { from = fromList′ 
+epList {r} = record { from = fromList′
                     ; to   = toList′
                     ; iso₁ = isoList₁ {r} ; iso₂ = isoList₂ }
 
@@ -55,7 +55,7 @@ epList {r} = record { from = fromList′
 mapList : ∀ {A B} → (A → B) → List A → List B
 mapList f = map `ListE' (↑ f) tt
 
--- Catamorphism               
+-- Catamorphism
 ^ : {F : Indexed ⊤} → F tt → (i : ⊤) → F i
 ^ x tt = x
 
