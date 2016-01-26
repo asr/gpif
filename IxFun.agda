@@ -1,5 +1,5 @@
 {-# OPTIONS --no-termination-check #-}
-{-# OPTIONS --no-positivity-check #-}
+
 module IxFun where
 
 open import Prelude
@@ -122,6 +122,8 @@ mutual
               ((r : Indexed I) → (o : O) → D r o ≃ ⟦ C ⟧ r o) →
               I ▸ O
 -- Interpretation of codes as indexed functors.
+
+  {-# NO_POSITIVITY_CHECK #-}
   data μ {I O : Set} (F : (I + O) ▸ O) (r : Indexed I) (o : O) : Set where
     ⟨_⟩ : ⟦ F ⟧ (r ∣ μ F r) o → μ F r o
 
