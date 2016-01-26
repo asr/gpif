@@ -3,20 +3,7 @@
 module Prelude where
 
 -- Universe polymorphism
-data Level : Set where
-  zero : Level
-  suc  : Level -> Level
-
-{-# BUILTIN LEVEL     Level #-}
-{-# BUILTIN LEVELZERO zero  #-}
-{-# BUILTIN LEVELSUC  suc   #-}
-
-max : Level -> Level -> Level
-max  zero    m      = m
-max (suc n)  zero   = suc n
-max (suc n) (suc m) = suc (max n m)
-
-{-# BUILTIN LEVELMAX max #-}
+open import Level using ( Level; max )
 
 ----------------------------------------------------------------------
 -- Trivial functions
@@ -201,8 +188,6 @@ data Nat : Set where
   suc  : Nat → Nat
 
 {-# BUILTIN NATURAL Nat #-}
-{-# BUILTIN ZERO zero #-}
-{-# BUILTIN SUC suc #-}
 
 -- Fin
 data Fin : Nat -> Set where
